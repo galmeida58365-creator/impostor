@@ -266,13 +266,23 @@ $('im-').onclick=()=>{S.imp--;renderSetup()};$('im+').onclick=()=>{S.imp++;rende
 $('tg-hint').onclick=()=>{S.hint=!S.hint;renderSetup()};$('tg-know').onclick=()=>{S.know=!S.know;renderSetup()};$('tg-cat').onclick=()=>{S.showCat=!S.showCat;renderSetup()};
 $('tm').onclick=e=>{const b=e.target.closest('[data-t]');if(b){S.time=+b.dataset.t;renderSetup()}};
 
-const rnd=n=>Math.floor(Math.random()*n);
+const rand=()=>{try{return crypto.getRandomValues(new Uint32Array(1))[0]/4294967296}catch(e){return Math.random()}};
+const rnd=n=>Math.floor(rand()*n);
+const streak={};
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
 function newGame(){
   const pool=S.cats.flatMap(k=>W[k].l.map(w=>({w:w[0],h:w[1],k})));
   let fresh=pool.filter(p=>!used[p.w]);if(!fresh.length){used={};fresh=pool}
   const pick=fresh[rnd(fresh.length)];used[pick.w]=1;
-  const idx=shuffle(S.players.map((_,i)=>i)).slice(0,S.imp);
+  // sorteio com peso: quem foi impostor na rodada passada tem bem menos chance de repetir
+  const idx=[];let cand=S.players.map((_,i)=>i);
+  for(let k=0;k<S.imp;k++){
+    const w=cand.map(i=>[1,.25,.06][Math.min(streak[S.players[i]]||0,2)]);
+    let r=rand()*w.reduce((a,b)=>a+b,0),j=0;
+    while(j<cand.length-1&&(r-=w[j])>0)j++;
+    idx.push(cand[j]);cand.splice(j,1);
+  }
+  S.players.forEach((p,i)=>{streak[p]=idx.includes(i)?(streak[p]||0)+1:0});
   G={word:pick,imps:idx,i:0,peeked:false};
   showPass();
 }
