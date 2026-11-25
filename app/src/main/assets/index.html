@@ -115,6 +115,24 @@ h2 svg{width:22px;height:22px;color:var(--yel)}
 .res .nm{font:400 clamp(38px,11vw,54px)/1.05 'Lilita One';color:var(--red);overflow-wrap:anywhere}
 .res .wd{font:400 34px/1.1 'Lilita One';color:var(--yel)}
 .res .hn{color:var(--mut);font-weight:800}
+ .vg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vp{border:2px solid var(--line);background:var(--panel);border-radius:18px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:900;font-size:17px;transition:.15s;overflow-wrap:anywhere;text-align:center}
+.vp .av{width:48px;height:48px;font-size:24px}
+.vp.sel{border-color:var(--red);background:#ff475722;transform:scale(1.03)}
+.vp:disabled{opacity:.35;text-decoration:line-through}
+.vp small{font-size:12px;color:var(--mut);font-weight:800;text-decoration:none}
+.vh{text-align:center}.vh p{margin:6px 0 0;color:var(--mut);font-weight:700}
+.out{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:60vh}
+.out .nm{font:400 clamp(40px,12vw,58px)/1.05 'Lilita One';overflow-wrap:anywhere}
+.out .era{color:var(--mut);font-weight:900;font-size:20px}
+.out .vd{font:400 clamp(44px,13vw,64px)/1 'Lilita One';opacity:0;transform:scale(.6);transition:.45s cubic-bezier(.3,1.6,.5,1)}
+.out.on .vd{opacity:1;transform:none}
+.out .vd.imp{color:var(--red)}.out .vd.inn{color:var(--grn)}
+.out svg.mk{width:96px;height:96px;opacity:0;transition:.4s}.out.on svg.mk{opacity:1}
+.out .st{color:var(--mut);font-weight:800;opacity:0;transition:.4s .3s;max-width:320px}.out.on .st{opacity:1}
+.win{font:400 26px 'Lilita One';padding:8px 18px;border-radius:14px;margin-bottom:6px}
+.win.g{background:#2ed57322;color:var(--grn)}.win.r{background:#ff475722;color:var(--red)}
+.skip{align-self:center;color:var(--mut);font-weight:800;text-decoration:underline;padding:12px;min-height:44px}
 .pop{display:none;position:fixed;inset:0;background:#000b;z-index:9;align-items:center;justify-content:center;padding:20px}
 .pop.on{display:flex}
 .pop>div{background:var(--panel);border-radius:24px;padding:22px;max-width:380px;width:100%;text-align:center}
@@ -140,6 +158,9 @@ h2 svg{width:22px;height:22px;color:var(--yel)}
 <symbol id="i-clk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></symbol>
 <symbol id="i-usr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0zM16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-ger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5l2.6 6 6.4.6-4.9 4.2 1.5 6.3L12 16.3l-5.6 3.3 1.5-6.3L3 9.1l6.4-.6z"/></symbol>
+<symbol id="i-vote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h18v7H3zM6 14V4h12v10M9 9l2 2 4-4"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
 <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6M6 20l6-6 6 6"/></symbol>
 <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
@@ -202,9 +223,22 @@ h2 svg{width:22px;height:22px;color:var(--yel)}
   </div>
 </section>
 
+<!-- VOTACAO -->
+<section class="scr" id="s-vote">
+  <div class="vh"><h1 style="font-size:36px">Quem é o <b>impostor?</b></h1><p>Votem e toquem em quem foi o mais votado</p></div>
+  <div class="vg" id="vg"></div>
+  <button class="skip" id="vrev">Pular votação e revelar o impostor</button>
+</section>
+
+<!-- EXPULSO -->
+<section class="scr" id="s-out">
+  <div class="out" id="out"></div>
+</section>
+
 <!-- RESULTADO -->
 <section class="scr" id="s-res">
   <div class="res">
+    <div class="win" id="rwin" hidden></div>
     <svg class="mk"><use href="#mask"/></svg>
     <div class="lb" id="rlb">O impostor era</div>
     <div class="nm" id="rnm"></div>
@@ -221,6 +255,7 @@ h2 svg{width:22px;height:22px;color:var(--yel)}
 <script>
 {
 const W={
+ger:{n:'Geral',l:[['Aniversário','Parabéns'],['Casamento','Aliança'],['Natal','Dezembro'],['Carnaval','Fantasia'],['Férias','Descanso'],['Arco-íris','Cores'],['Vulcão','Lava'],['Fantasma','Lençol'],['Dinossauro','Fóssil'],['Pirata','Tesouro'],['Super-herói','Capa'],['Mágico','Cartola'],['Palhaço','Circo'],['Rei','Coroa'],['Sereia','Cauda'],['Bruxa','Feitiço'],['Viagem','Estrada'],['Dinheiro','Carteira'],['Selfie','Pose'],['Prova','Nota'],['Ônibus','Ponto'],['Avião','Asas'],['Navio','Porto'],['Foguete','Lua'],['Neve','Frio'],['Pijama','Cama'],['Show','Palco'],['Novela','Capítulo'],['Livro','Página'],['Fogos de artifício','Ano-novo'],['Piscina','Cloro'],['Elevador','Andar'],['Despertador','Soneca'],['Moto','Capacete'],['Trem','Trilho'],['Formatura','Diploma'],['Acampamento','Barraca'],['Tempestade','Raio'],['Deserto','Camelo'],['Floresta','Árvore'],['Montanha','Topo'],['Ilha','Isolado'],['Castelo','Torre'],['Zumbi','Apocalipse'],['Alienígena','Disco voador'],['Ninja','Sombra'],['Princesa','Vestido'],['Copa do Mundo','Seleção'],['Pipa','Linha'],['Banho','Toalha']]},
 obj:{n:'Objetos',l:[['Guarda-chuva','Chuva'],['Tesoura','Corte'],['Relógio','Tempo'],['Espelho','Reflexo'],['Travesseiro','Sono'],['Mochila','Costas'],['Vela','Aniversário'],['Chave','Porta'],['Escova de dentes','Banheiro'],['Controle remoto','Sofá'],['Óculos','Visão'],['Panela','Fogão'],['Lanterna','Escuro'],['Carregador','Tomada'],['Cadeado','Segurança'],['Martelo','Prego'],['Garrafa','Água'],['Fone de ouvido','Música'],['Ventilador','Calor'],['Cobertor','Frio'],['Vassoura','Chão'],['Caneta','Tinta']]},
 ani:{n:'Animais',l:[['Girafa','Alta'],['Pinguim','Gelo'],['Tubarão','Oceano'],['Coruja','Noite'],['Camaleão','Cor'],['Elefante','Memória'],['Formiga','Trabalho'],['Cobra','Veneno'],['Canguru','Pulo'],['Macaco','Galho'],['Abelha','Mel'],['Tartaruga','Casco'],['Leão','Juba'],['Papagaio','Fala'],['Polvo','Tentáculo'],['Morcego','Caverna'],['Cavalo','Sela'],['Golfinho','Inteligente'],['Porco','Lama'],['Capivara','Rio'],['Galinha','Ovo'],['Gato','Bigode']]},
 com:{n:'Comidas',l:[['Pizza','Forno'],['Brigadeiro','Festa'],['Feijoada','Sábado'],['Pastel','Feira'],['Pão de queijo','Minas'],['Sushi','Japão'],['Pipoca','Cinema'],['Açaí','Roxo'],['Coxinha','Lanchonete'],['Churrasco','Carvão'],['Moqueca','Panela de barro'],['Lasanha','Camadas'],['Sorvete','Verão'],['Tapioca','Nordeste'],['Hambúrguer','Pão'],['Bolo','Vela'],['Melancia','Semente'],['Café','Manhã'],['Miojo','Rápido'],['Chocolate','Páscoa'],['Arroz','Panela'],['Banana','Amarelo']]},
@@ -229,7 +264,7 @@ pro:{n:'Profissões',l:[['Bombeiro','Mangueira'],['Médico','Jaleco'],['Professo
 esp:{n:'Esportes',l:[['Futebol','Campo'],['Vôlei','Rede'],['Basquete','Cesta'],['Natação','Touca'],['Skate','Manobra'],['Boxe','Luva'],['Tênis','Raquete'],['Surfe','Onda'],['Ciclismo','Pedal'],['Xadrez','Rei'],['Judô','Faixa'],['Corrida','Fôlego'],['Futsal','Quadra'],['Handebol','Arremesso'],['Golfe','Buraco'],['Capoeira','Roda'],['Atletismo','Pista'],['Ping-pong','Mesa'],['Escalada','Corda'],['Paraquedismo','Avião']]},
 tec:{n:'Tecnologia',l:[['Celular','Bolso'],['Robô','Metal'],['Wi-Fi','Senha'],['Videogame','Controle'],['Notebook','Teclado'],['Drone','Hélice'],['Impressora','Papel'],['Arduino','Placa'],['Motor elétrico','Bobina'],['Bateria','Carga'],['Pen drive','USB'],['Smartwatch','Pulso'],['Câmera','Foto'],['Satélite','Órbita'],['Lâmpada','Interruptor'],['CLP','Automação'],['Inteligência artificial','Chat'],['Fone bluetooth','Sem fio'],['Televisão','Canal'],['GPS','Mapa']]}
 };
-const IC={obj:'i-obj',ani:'i-ani',com:'i-com',lug:'i-lug',pro:'i-pro',esp:'i-esp',tec:'i-tec'};
+const IC={ger:'i-ger',obj:'i-obj',ani:'i-ani',com:'i-com',lug:'i-lug',pro:'i-pro',esp:'i-esp',tec:'i-tec'};
 const COL=['#ffd23f','#ff6b81','#7bd3ff','#2ed573','#c79bff','#ffa94d','#70e1c8','#ff9ff3'];
 const $=s=>document.getElementById(s);
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -283,7 +318,7 @@ function newGame(){
     idx.push(cand[j]);cand.splice(j,1);
   }
   S.players.forEach((p,i)=>{streak[p]=idx.includes(i)?(streak[p]||0)+1:0});
-  G={word:pick,imps:idx,i:0,peeked:false};
+  G={word:pick,imps:idx,i:0,peeked:false,out:[],sel:null,end:''};
   showPass();
 }
 function showPass(){
@@ -327,7 +362,11 @@ function startPlay(){
   $('order').innerHTML=order.map((p,j)=>{const c=COL[S.players.indexOf(p)%COL.length];return `<span class="pl" style="padding-right:12px"><span class="av" style="background:${c}">${j+1}</span>${esc(p)}</span>`}).join('');
   $('tw').style.display=S.time?'':'none';
   clearInterval(tInt);tLeft=S.time;tRun=!!S.time;drawT();if(S.time)tInt=setInterval(tick,1000);
-  bar(`<button class="big ghost" id="quit" aria-label="Sair">${ico('i-x')}</button><button class="big red" id="reveal">${ico('i-imp')}Revelar impostor</button>`);
+  bar(`<button class="big ghost" id="quit" aria-label="Sair">${ico('i-x')}</button><button class="big red" id="vote">${ico('i-vote')}Votação</button>`);
+  show('s-play');
+}
+function startPlayBack(){
+  bar(`<button class="big ghost" id="quit" aria-label="Sair">${ico('i-x')}</button><button class="big red" id="vote">${ico('i-vote')}Votação</button>`);
   show('s-play');
 }
 function tick(){if(!tRun)return;tLeft=Math.max(0,tLeft-1);drawT();if(!tLeft){tRun=false;try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(_){}}}
@@ -340,8 +379,40 @@ function drawT(){
 }
 $('tp').onclick=()=>{if(tLeft){tRun=!tRun;drawT()}};
 $('tz').onclick=()=>{tLeft=S.time;tRun=true;drawT()};
+const impsLeft=()=>G.imps.filter(j=>!G.out.includes(j)).length;
+const innLeft=()=>S.players.length-G.out.length-impsLeft();
+function showVote(){
+  G.sel=null;
+  $('vg').innerHTML=S.players.map((p,i)=>{const o=G.out.includes(i);return `<button class="vp" data-v="${i}" ${o?'disabled':''}><span class="av" style="background:${COL[i%COL.length]}">${esc(p[0].toUpperCase())}</span>${esc(p)}${o?`<small>${G.imps.includes(i)?'impostor pego':'inocente'}</small>`:''}</button>`}).join('');
+  voteBar();show('s-vote');
+}
+function voteBar(){
+  bar(`<button class="big ghost" id="vback" aria-label="Voltar">${ico('i-back')}</button><button class="big red" id="expel" ${G.sel===null?'disabled':''}>${G.sel===null?'Escolham alguém':'Expulsar '+esc(S.players[G.sel])}</button>`);
+}
+$('vg').onclick=e=>{const b=e.target.closest('[data-v]');if(!b||b.disabled)return;G.sel=+b.dataset.v;
+  document.querySelectorAll('.vp').forEach(x=>x.classList.toggle('sel',x===b));voteBar()};
+$('vrev').onclick=()=>ask('Revelar o impostor agora?',showRes);
+function expel(){
+  const i=G.sel,imp=G.imps.includes(i);G.out.push(i);
+  const left=impsLeft();
+  if(imp&&!left)G.end='inn';else if(!imp&&innLeft()<=left)G.end='imp';
+  const st=imp?(left?`Ainda tem ${left} impostor${left>1?'es':''} no meio de vocês...`:'Todos os impostores foram pegos!')
+    :(G.end?'Os impostores agora são maioria.':'Expulsaram um inocente. O impostor continua no jogo!');
+  $('out').className='out';
+  $('out').innerHTML=`<div class="nm" style="color:${COL[i%COL.length]}">${esc(S.players[i])}</div><div class="era">era...</div>
+    <svg class="mk"><use href="${imp?'#mask':'#i-usr'}" ${imp?'':'style="color:#2ed573"'}/></svg>
+    <div class="vd ${imp?'imp':'inn'}">${imp?'IMPOSTOR!':'INOCENTE'}</div><div class="st">${st}</div>`;
+  bar('');show('s-out');
+  setTimeout(()=>{$('out').classList.add('on');try{navigator.vibrate&&navigator.vibrate(imp?[80,60,200]:60)}catch(_){}
+    bar(G.end?`<button class="big ${G.end==='inn'?'':'red'}" id="final">${ico('i-imp')}Ver resultado</button>`
+      :`<button class="big ghost" id="reveal" aria-label="Revelar impostor">${ico('i-imp')}</button><button class="big" id="tovote">${ico('i-vote')}Votar de novo</button>`);
+  },1800);
+}
 function showRes(){
   clearInterval(tInt);
+  $('rwin').hidden=!G.end;
+  $('rwin').className='win '+(G.end==='inn'?'g':'r');
+  $('rwin').textContent=G.end==='inn'?'Inocentes venceram!':'Impostores venceram!';
   const n=G.imps.map(j=>S.players[j]);
   $('rlb').textContent=n.length>1?'Os impostores eram':'O impostor era';
   $('rnm').textContent=n.join(' e ');
@@ -358,6 +429,10 @@ $('bar').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return
   if(b.id==='go')newGame();
   else if(b.id==='next'){if(G.i<S.players.length-1){G.i++;showPass()}else startPlay()}
   else if(b.id==='reveal')ask('Revelar o impostor agora?',showRes);
+  else if(b.id==='vote'||b.id==='tovote')showVote();
+  else if(b.id==='vback')startPlayBack();
+  else if(b.id==='expel')ask(`Expulsar ${S.players[G.sel]}?`,expel);
+  else if(b.id==='final')showRes();
   else if(b.id==='quit')ask('Sair da partida e voltar pra configuração?',()=>{clearInterval(tInt);show('s-setup');renderSetup()});
   else if(b.id==='again')newGame();
   else if(b.id==='cfg'){show('s-setup');renderSetup()}
@@ -366,6 +441,8 @@ window.onAndroidBack=()=>{
   if($('pop').classList.contains('on')){$('pop').classList.remove('on');return true}
   if($('s-setup').classList.contains('on'))return false;
   if($('s-res').classList.contains('on')){show('s-setup');renderSetup();return true}
+  if($('s-vote').classList.contains('on')){startPlayBack();return true}
+  if($('s-out').classList.contains('on'))return true;
   ask('Sair da partida e voltar pra configuração?',()=>{clearInterval(tInt);show('s-setup');renderSetup()});return true;
 };
 renderSetup();
